@@ -17,6 +17,4 @@ This script is simply intended to generate the first four and derive the other e
 
 For more on geomancy, I recommend the book The Art and Practice of Geomancy by John Michael Greer.
 
-This project is ongoing and kind of a mess. It's really just my beginner project as a Rubyist, to see if I can write a script myself that will scratch an itch.
-
-Update, three years later: I've reqritten the code for this like three times and not uploaded it, and now I'm working on a fourth iteration, this time storing the basic data about a reading and the first four figures in a database, because maybe I'll want to refer back to a previous chart later, and also to give me more practice with databases. Which I am geek enough to enjoy.
+This project was originally a beginning Ruby project, so old versions of the code are *awful*. The latest version is still pretty naive, but it has a SQLite database to store things, and any version posted is working code for whatever's actually there.
