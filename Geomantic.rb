@@ -23,36 +23,36 @@ begin
     	Charts (ID INTEGER PRIMARY KEY, 
     	Chart_name TEXT, Date TEXT, For TEXT, 
     	By TEXT, Subject TEXT, 
-    	M1_fire INTEGER,   M1_air INTEGER, 
-    	M1_water INTEGER,  M1_earth INTEGER, 
-    	M2_fire INTEGER,   M2_air INTEGER, 
-    	M2_water INTEGER,  M2_earth INTEGER, 
-    	M3_fire INTEGER,   M3_air INTEGER, 
-    	M3_water INTEGER,  M3_earth INTEGER, 
-    	M4_fire INTEGER,   M4_air INTEGER, 
-    	M4_water INTEGER,  M4_earth INTEGER, 
-    	D1_fire INTEGER,   D1_air INTEGER, 
-    	D1_water INTEGER,  D1_earth INTEGER, 
-    	D2_fire INTEGER,   D2_air INTEGER, 
-    	D2_water INTEGER,  D2_earth INTEGER, 
-    	D3_fire INTEGER,   D3_air INTEGER, 
-    	D3_water INTEGER,  D3_earth INTEGER, 
-    	D4_fire INTEGER,   D4_air INTEGER, 
-    	D4_water INTEGER,  D4_earth INTEGER, 
-    	N1_fire INTEGER,   N1_air INTEGER, 
-    	N1_water INTEGER,  N1_earth INTEGER, 
-    	N2_fire INTEGER,   N2_air INTEGER, 
-    	N2_water INTEGER,  N2_earth INTEGER, 
-    	N3_fire INTEGER,   N3_air INTEGER, 
-    	N3_water INTEGER,  N3_earth INTEGER, 
-    	N4_fire INTEGER,   N4_air INTEGER, 
-    	N4_water INTEGER,  N4_earth INTEGER, 
-    	RW1_fire INTEGER,  RW1_air INTEGER, 
+    	M1_fire   INTEGER, M1_air    INTEGER, 
+    	M1_water  INTEGER, M1_earth  INTEGER, 
+    	M2_fire   INTEGER, M2_air    INTEGER, 
+    	M2_water  INTEGER, M2_earth  INTEGER, 
+    	M3_fire   INTEGER, M3_air    INTEGER, 
+    	M3_water  INTEGER, M3_earth  INTEGER, 
+    	M4_fire   INTEGER, M4_air    INTEGER, 
+    	M4_water  INTEGER, M4_earth  INTEGER, 
+    	D1_fire   INTEGER, D1_air    INTEGER, 
+    	D1_water  INTEGER, D1_earth  INTEGER, 
+    	D2_fire   INTEGER, D2_air    INTEGER, 
+    	D2_water  INTEGER, D2_earth  INTEGER, 
+    	D3_fire   INTEGER, D3_air    INTEGER, 
+    	D3_water  INTEGER, D3_earth  INTEGER, 
+    	D4_fire   INTEGER, D4_air    INTEGER, 
+    	D4_water  INTEGER, D4_earth  INTEGER, 
+    	N1_fire   INTEGER, N1_air    INTEGER, 
+    	N1_water  INTEGER, N1_earth  INTEGER, 
+    	N2_fire   INTEGER, N2_air    INTEGER, 
+    	N2_water  INTEGER, N2_earth  INTEGER, 
+    	N3_fire   INTEGER, N3_air    INTEGER, 
+    	N3_water  INTEGER, N3_earth  INTEGER, 
+    	N4_fire   INTEGER, N4_air    INTEGER, 
+    	N4_water  INTEGER, N4_earth  INTEGER, 
+    	RW1_fire  INTEGER, RW1_air   INTEGER, 
     	RW1_water INTEGER, RW1_earth INTEGER, 
-    	LW2_fire INTEGER,  LW2_air INTEGER, 
+    	LW2_fire  INTEGER, LW2_air   INTEGER, 
     	LW2_water INTEGER, LW2_earth INTEGER, 
-    	J3_fire INTEGER,   J3_air INTEGER, 
-    	J3_water INTEGER,  J3_earth INTEGER);"
+    	J3_fire   INTEGER, J3_air    INTEGER, 
+    	J3_water  INTEGER, J3_earth  INTEGER);"
     	puts "table created"
 
 rescue SQLite3::Exception => e     
@@ -61,8 +61,6 @@ rescue SQLite3::Exception => e
 ensure
     db.close if db    
 end
-
-
 
 #something to take in info about a chart and 
 #pass it to the DB - DONE
@@ -122,7 +120,6 @@ def generate_line
 #  	puts "line = #{line_value}"
 end
 
-
 #run generate_line four times to make a mother - DONE
 
 def generate_mother
@@ -138,6 +135,44 @@ def generate_mother
 	# puts "water line = #{water_line}"
 	# puts "earth line = #{earth_line}"
 	# puts
+
+end
+
+#method to derive other figures - DONE
+
+def derive_figure (fire_1, air_1, water_1, earth_1, 
+	fire_2, air_2, water_2, earth_2)
+
+	if (fire_1 + fire_2).even?
+		fire_new = 2
+	else
+		fire_new = 1
+	end
+
+	if (air_1 + air_2).even?
+		air_new = 2
+	else 
+		air_new = 1
+	end
+
+	if (water_1 + water_2).even?
+		water_new = 2
+	else 
+		water_new = 1
+	end
+
+	if (earth_1 + earth_2).even?
+		earth_new = 2
+	else 
+		earth_new = 1
+	end
+
+	puts
+	puts fire_new
+	puts air_new
+	puts water_new
+	puts earth_new
+	puts
 
 end
 
@@ -163,7 +198,7 @@ begin
 		M1_earth = '#{@earth_line}' 
 	WHERE ID = #{$id};"
 
-	# puts "updated"
+	# puts "updated first mother"
 
 	# statement = db.prepare "SELECT * FROM Charts 
 	# WHERE ID=?;"
@@ -203,7 +238,7 @@ begin
 		M2_earth = '#{@earth_line}' 
 	WHERE ID = #{$id};"
 
-	# puts "updated"
+	# puts "updated second mother"
 
 	# statement = db.prepare "SELECT * FROM Charts 
 	# WHERE ID=?;"
@@ -243,7 +278,7 @@ begin
 		M3_earth = '#{@earth_line}' 
 	WHERE ID = #{$id};"
 
-	# puts "updated"
+	# puts "updated third mother"
 
 	# statement = db.prepare "SELECT * FROM Charts 
 	# WHERE ID=?;"
@@ -283,7 +318,7 @@ begin
 		M4_earth = '#{@earth_line}' 
 	WHERE ID = #{$id};"
 
-	# puts "updated"
+	# puts "updated fourth mother"
 
 	# statement = db.prepare "SELECT * FROM Charts 
 	# WHERE ID=?;"
@@ -303,7 +338,7 @@ ensure
 	db.close if db    
 end
 
-#something to assemble daughters
+#something to assemble daughters - DONE
 
 begin
 	db = SQLite3::Database.open "geomantic.db"
@@ -375,8 +410,8 @@ begin
 	puts "updated d2"
 
 	#third daughter
-	statement3d = db.prepare "SELECT M3_fire, 
-	M2_fire, M3_fire, M4_fire FROM Charts 
+	statement3d = db.prepare "SELECT M1_water, 
+	M2_water, M3_water, M4_water FROM Charts 
 	WHERE ID=?;"
 	statement3d.bind_param 1, $id
 	result_set3d = statement3d.execute
@@ -408,8 +443,8 @@ begin
 	puts "updated d3"
 
 		#fourth daughter
-	statement4d = db.prepare "SELECT M4_fire, 
-	M2_fire, M4_fire, M4_fire FROM Charts 
+	statement4d = db.prepare "SELECT M1_earth, 
+	M2_earth, M3_earth, M4_earth FROM Charts 
 	WHERE ID=?;"
 	statement4d.bind_param 1, $id
 	result_set4d = statement4d.execute
@@ -462,10 +497,9 @@ ensure
 	db.close if db    
 end
 
-#method to derive other figures
+#update remaining figures in database
 
-#update each figure in database
+#something to identify figures from lines
 
 #something to output the chart
 
-#something to identify figures from lines
