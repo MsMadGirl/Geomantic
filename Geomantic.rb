@@ -53,7 +53,103 @@ begin
     	LW2_water INTEGER, LW2_earth INTEGER, 
     	J3_fire   INTEGER, J3_air    INTEGER, 
     	J3_water  INTEGER, J3_earth  INTEGER);"
-    	puts "table created"
+    puts "Charts table created"
+
+rescue SQLite3::Exception => e     
+    puts "Exception occurred"
+    puts e    
+ensure
+    db.close if db    
+end
+
+begin
+	db = SQLite3::Database.open "geomantic.db"
+    db.execute "CREATE TABLE IF NOT EXISTS 
+    Figures (ID INTEGER PRIMARY KEY, Number INTEGER, 
+    Name TEXT, Translation TEXT, Figure TEXT);"
+    puts "Figures table created"
+
+	db.execute "INSERT INTO Figures (Number, Name, 
+    Translation)
+    VALUES (1111, 'Via', 'Way');"
+    db.execute "INSERT INTO Figures (Number, Name, 
+    Translation)
+    VALUES (1112, 'Cauda Draconis', 'Tail of the Dragon');"
+    db.execute "INSERT INTO Figures (Number, Name, 
+    Translation)
+    VALUES (1121, 'Puer', 'Boy');"
+    db.execute "INSERT INTO Figures (Number, Name, 
+    Translation)
+    VALUES (1122, 'Fortuna Minor', 'Lesser Fortune');"
+    db.execute "INSERT INTO Figures (Number, Name, 
+    Translation)
+    VALUES (1211, 'Puella', 'Girl');"
+    db.execute "INSERT INTO Figures (Number, Name, 
+    Translation)
+    VALUES (1212, 'Amissio', 'Loss');"
+	db.execute "INSERT INTO Figures (Number, Name, 
+    Translation)
+    VALUES (1221, 'Carcer', 'Prison');"
+    db.execute "INSERT INTO Figures (Number, Name, 
+    Translation)
+    VALUES (1222, 'Laetitia', 'Joy');"
+    db.execute "INSERT INTO Figures (Number, Name, 
+    Translation)
+    VALUES (2111, 'Caput Draconis', 'Head of the Dragon');"
+    db.execute "INSERT INTO Figures (Number, Name, 
+    Translation)
+    VALUES (2112, 'Conjunctio', 'Conjunction');"
+    db.execute "INSERT INTO Figures (Number, Name, 
+    Translation)
+    VALUES (2121, 'Acquisitio', 'Gain');"
+    db.execute "INSERT INTO Figures (Number, Name, 
+    Translation)
+    VALUES (2122, 'Rubeus', 'Red');"
+    db.execute "INSERT INTO Figures (Number, Name, 
+    Translation)
+    VALUES (2211, 'Fortuna Major', 'Greater Fortune');"
+    db.execute "INSERT INTO Figures (Number, Name, 
+    Translation)
+    VALUES (2212, 'Albus', 'White');"
+    db.execute "INSERT INTO Figures (Number, Name, 
+    Translation)
+    VALUES (2221, 'Tristitia', 'Sorrow');"
+    db.execute "INSERT INTO Figures (Number, Name, 
+    Translation)
+    VALUES (2222, 'Populus', 'People');"
+
+    db.execute "UPDATE Figures SET Figure = 
+    ' * \\r * \\r * \\r * ' WHERE ID = 1;"
+    db.execute "UPDATE Figures SET Figure = 
+    ' * \\r * \\r * \\r* *' WHERE ID = 2;"
+    db.execute "UPDATE Figures SET Figure = 
+    ' * \\r * \\r* *\\r * ' WHERE ID = 3;"
+    db.execute "UPDATE Figures SET Figure =  
+    ' * \\r * \\r* *\\r* *' WHERE ID = 4;"
+    db.execute "UPDATE Figures SET Figure =  
+    ' * \\r* *\\r * \\r * ' WHERE ID = 5;"
+    db.execute "UPDATE Figures SET Figure =  
+    ' * \\r* *\\r * \\r* *' WHERE ID = 6;"
+	db.execute "UPDATE Figures SET Figure =  
+    ' * \\r* *\\r* *\\r * ' WHERE ID = 7;"
+    db.execute "UPDATE Figures SET Figure =  
+    ' * \\r* *\\r* *\\r* *' WHERE ID = 8;"
+    db.execute "UPDATE Figures SET Figure =  
+    '* *\\r * \\r * \\r * ' WHERE ID = 9;"
+    db.execute "UPDATE Figures SET Figure =  
+    '* *\\r * \\r * \\r* *' WHERE ID = 10;"
+    db.execute "UPDATE Figures SET Figure =  
+    '* *\\r * \\r* *\\r * ' WHERE ID = 11;"
+    db.execute "UPDATE Figures SET Figure =  
+    '* *\\r * \\r* *\\r* *' WHERE ID = 12;"
+    db.execute "UPDATE Figures SET Figure =  
+    '* *\\r* *\\r * \\r * ' WHERE ID = 13;"
+    db.execute "UPDATE Figures SET Figure =  
+    '* *\\r* *\\r * \\r* *' WHERE ID = 14;"
+    db.execute "UPDATE Figures SET Figure =  
+    '* *\\r* *\\r* *\\r * ' WHERE ID = 15;"
+    db.execute "UPDATE Figures SET Figure =  
+    '* *\\r* *\\r* *\\r* *' WHERE ID = 16;"
 
 rescue SQLite3::Exception => e     
     puts "Exception occurred"
@@ -67,15 +163,15 @@ end
 
 def chart_info
 	puts "Name of chart: "
-	c_name = gets
+	c_name = gets.chomp
 	puts "Date: "
-	c_date = gets
+	c_date = gets.chomp
 	puts "Who is the chart for? "
-	c_for = gets
+	c_for = gets.chomp
 	puts "Who is the chart being created by? "
-	c_by = gets
+	c_by = gets.chomp
 	puts "What is the subject of the reading? "
-	c_subject = gets
+	c_subject = gets.chomp
 
 	begin
 		db = SQLite3::Database.open "geomantic.db"
@@ -94,7 +190,7 @@ def chart_info
   #   	row = result_set.next
     
   #   	puts
-  #   	puts row.join "\r"
+  #   	p row
 
 	rescue SQLite3::Exception => e     
     	puts "Exception occurred"
@@ -144,36 +240,79 @@ def derive_figure (fire_1, air_1, water_1, earth_1,
 	fire_2, air_2, water_2, earth_2)
 
 	if (fire_1 + fire_2).even?
-		fire_new = 2
+		@fire_new = 2
 	else
-		fire_new = 1
+		@fire_new = 1
 	end
 
 	if (air_1 + air_2).even?
-		air_new = 2
+		@air_new = 2
 	else 
-		air_new = 1
+		@air_new = 1
 	end
 
 	if (water_1 + water_2).even?
-		water_new = 2
+		@water_new = 2
 	else 
-		water_new = 1
+		@water_new = 1
 	end
 
 	if (earth_1 + earth_2).even?
-		earth_new = 2
+		@earth_new = 2
 	else 
-		earth_new = 1
+		@earth_new = 1
 	end
 
-	puts
-	puts fire_new
-	puts air_new
-	puts water_new
-	puts earth_new
-	puts
+	# puts
+	# puts fire_new
+	# puts air_new
+	# puts water_new
+	# puts earth_new
+	# puts
 
+end
+
+#method to look up figures from table
+
+def lookup_figure(fire, air, water, earth)
+
+	figid = (fire.to_s + air.to_s + water.to_s + 
+		earth.to_s).to_i
+
+	puts figid
+
+	begin
+		db = SQLite3::Database.open "geomantic.db"
+		statement = db.prepare "SELECT * FROM Figures 
+		WHERE Number=?;"
+		statement.bind_param 1, figid
+		result_set = statement.execute
+
+		# p result_set
+
+		row = result_set.next
+
+		# puts
+		# p row
+
+		id       = row.at(0)
+		fignum   = row.at(1)
+		figname  = row.at(2)
+		figtrans = row.at(3)
+		figure   = row.at(4)
+
+		puts
+		puts figname
+		print figure
+		puts
+
+	rescue SQLite3::Exception => e     
+		puts "Exception occurred"
+		puts e    
+	ensure
+		statement.close if statement
+		db.close if db    
+	end		
 end
 
 #something to pass the mothers into the DB - DONE
@@ -208,7 +347,7 @@ begin
 	# row = result_set.next
 
 	# puts
-	# puts row.join "\r"
+	# p row
 
 rescue SQLite3::Exception => e     
 	puts "Exception occurred"
@@ -248,7 +387,7 @@ begin
 	# row = result_set.next
 
 	# puts
-	# puts row.join "\r"
+	# p row
 
 rescue SQLite3::Exception => e     
 	puts "Exception occurred"
@@ -288,7 +427,7 @@ begin
 	# row = result_set.next
 
 	# puts
-	# puts row.join "\r"
+	# p row
 
 rescue SQLite3::Exception => e     
 	puts "Exception occurred"
@@ -328,7 +467,7 @@ begin
 	# row = result_set.next
 
 	# puts
-	# puts row.join "\r"
+	# p row
 
 rescue SQLite3::Exception => e     
 	puts "Exception occurred"
@@ -352,20 +491,20 @@ begin
 
 	row1d = result_set1d.next
 
-	puts
-	puts row1d.join "\r"
+	# puts
+	# p row1d
 
 	d1_fire  = row1d.at(0)
 	d1_air   = row1d.at(1)
 	d1_water = row1d.at(2)
 	d1_earth = row1d.at(3)
 
-	puts
-	puts "fire  #{d1_fire}"
-	puts "air   #{d1_air}"
-	puts "water #{d1_water}"
-	puts "earth #{d1_earth}"
-	puts
+	# puts
+	# puts "fire  #{d1_fire}"
+	# puts "air   #{d1_air}"
+	# puts "water #{d1_water}"
+	# puts "earth #{d1_earth}"
+	# puts
 
 	db.execute "UPDATE Charts 
 	SET D1_fire  = '#{d1_fire}', 
@@ -374,7 +513,7 @@ begin
 		D1_earth = '#{d1_earth}' 
 	WHERE ID = #{$id};"
 
-	puts "updated d1"
+	# puts "updated d1"
 
 	#second daughter
 	statement2d = db.prepare "SELECT M1_air, 
@@ -385,20 +524,20 @@ begin
 
 	row2d = result_set2d.next
 
-	puts
-	puts row2d.join "\r"
+	# puts
+	# p row2d
 
 	d2_fire  = row2d.at(0)
 	d2_air   = row2d.at(1)
 	d2_water = row2d.at(2)
 	d2_earth = row2d.at(3)
 
-	puts
-	puts "fire  #{d2_fire}"
-	puts "air   #{d2_air}"
-	puts "water #{d2_water}"
-	puts "earth #{d2_earth}"
-	puts
+	# puts
+	# puts "fire  #{d2_fire}"
+	# puts "air   #{d2_air}"
+	# puts "water #{d2_water}"
+	# puts "earth #{d2_earth}"
+	# puts
 
 	db.execute "UPDATE Charts 
 	SET D2_fire  = '#{d2_fire}', 
@@ -407,7 +546,7 @@ begin
 		D2_earth = '#{d2_earth}' 
 	WHERE ID = #{$id};"
 
-	puts "updated d2"
+	# puts "updated d2"
 
 	#third daughter
 	statement3d = db.prepare "SELECT M1_water, 
@@ -418,20 +557,20 @@ begin
 
 	row3d = result_set3d.next
 
-	puts
-	puts row3d.join "\r"
+	# puts
+	# p row3d
 
 	d3_fire  = row3d.at(0)
 	d3_air   = row3d.at(1)
 	d3_water = row3d.at(2)
 	d3_earth = row3d.at(3)
 
-	puts
-	puts "fire  #{d3_fire}"
-	puts "air   #{d3_air}"
-	puts "water #{d3_water}"
-	puts "earth #{d3_earth}"
-	puts
+	# puts
+	# puts "fire  #{d3_fire}"
+	# puts "air   #{d3_air}"
+	# puts "water #{d3_water}"
+	# puts "earth #{d3_earth}"
+	# puts
 
 	db.execute "UPDATE Charts 
 	SET D3_fire  = '#{d3_fire}', 
@@ -440,7 +579,7 @@ begin
 		D3_earth = '#{d3_earth}' 
 	WHERE ID = #{$id};"
 
-	puts "updated d3"
+	# puts "updated d3"
 
 		#fourth daughter
 	statement4d = db.prepare "SELECT M1_earth, 
@@ -451,20 +590,20 @@ begin
 
 	row4d = result_set4d.next
 
-	puts
-	puts row4d.join "\r"
+	# puts
+	# p row4d
 
 	d4_fire  = row4d.at(0)
 	d4_air   = row4d.at(1)
 	d4_water = row4d.at(2)
 	d4_earth = row4d.at(3)
 
-	puts
-	puts "fire  #{d4_fire}"
-	puts "air   #{d4_air}"
-	puts "water #{d4_water}"
-	puts "earth #{d4_earth}"
-	puts
+	# puts
+	# puts "fire  #{d4_fire}"
+	# puts "air   #{d4_air}"
+	# puts "water #{d4_water}"
+	# puts "earth #{d4_earth}"
+	# puts
 
 	db.execute "UPDATE Charts 
 	SET D4_fire  = '#{d4_fire}', 
@@ -473,7 +612,7 @@ begin
 		D4_earth = '#{d4_earth}' 
 	WHERE ID = #{$id};"
 
-	puts "updated d4"
+	# puts "updated d4"
 
 	statement1d_out = db.prepare "SELECT * FROM Charts 
 	WHERE ID=?;"
@@ -482,8 +621,8 @@ begin
 
 	row1d_out = result_set1d_out.next
 
-	puts
-	puts row1d_out.join "\r"
+	# puts
+	# p row1d
 
 rescue SQLite3::Exception => e     
 	puts "Exception occurred"
@@ -499,7 +638,474 @@ end
 
 #update remaining figures in database
 
-#something to identify figures from lines
+#First Niece
+begin
+	db = SQLite3::Database.open "geomantic.db"
+
+	statement1 = db.prepare "SELECT M1_fire,
+	M1_air, M1_water, M1_earth, M2_fire, M2_air,
+	M2_water, M2_earth FROM Charts WHERE Id = ?;"
+	statement1.bind_param 1, $id
+	result_set1 = statement1.execute
+
+	# p result_set1
+
+	row1 = result_set1.next
+
+	# p row1
+
+	fire_1  = row1.at(0)
+	air_1   = row1.at(1)
+	water_1 = row1.at(2)
+	earth_1 = row1.at(3)
+	fire_2  = row1.at(4)
+	air_2   = row1.at(5)
+	water_2 = row1.at(6)
+	earth_2 = row1.at(7)
+
+	derive_figure(fire_1, air_1, water_1, 
+		earth_1, fire_2, air_2, water_2, earth_2)
+
+	# puts
+	# puts @fire_new
+	# puts @air_new
+	# puts @water_new
+	# puts @earth_new
+	# puts
+
+	db.execute "UPDATE Charts 
+	SET N1_fire  = '#{@fire_new}', 
+		N1_air   = '#{@air_new}', 
+		N1_water = '#{@water_new}', 
+		N1_earth = '#{@earth_new}' 
+	WHERE ID = #{$id};"
+
+	# puts "updated first niece"
+
+	# statement = db.prepare "SELECT * FROM Charts 
+	# WHERE ID=?;"
+	# statement.bind_param 1, $id
+	# result_set = statement.execute
+
+	# row = result_set.next
+
+	# puts
+	# p row
+
+rescue SQLite3::Exception => e     
+	puts "Exception occurred"
+	puts e    
+ensure
+	# statement.close if statement
+	statement1.close if statement1
+	db.close if db    
+end
+
+#Second Niece
+begin
+	db = SQLite3::Database.open "geomantic.db"
+
+	statement1 = db.prepare "SELECT M3_fire,
+	M3_air, M3_water, M3_earth, M4_fire, M4_air,
+	M4_water, M4_earth FROM Charts WHERE Id = ?;"
+	statement1.bind_param 1, $id
+	result_set1 = statement1.execute
+
+	# p result_set1
+
+	row1 = result_set1.next
+
+	# p row1
+
+	fire_1  = row1.at(0)
+	air_1   = row1.at(1)
+	water_1 = row1.at(2)
+	earth_1 = row1.at(3)
+	fire_2  = row1.at(4)
+	air_2   = row1.at(5)
+	water_2 = row1.at(6)
+	earth_2 = row1.at(7)
+
+	derive_figure(fire_1, air_1, water_1, 
+		earth_1, fire_2, air_2, water_2, earth_2)
+
+	# puts
+	# puts @fire_new
+	# puts @air_new
+	# puts @water_new
+	# puts @earth_new
+	# puts
+
+	db.execute "UPDATE Charts 
+	SET N2_fire  = '#{@fire_new}', 
+		N2_air   = '#{@air_new}', 
+		N2_water = '#{@water_new}', 
+		N2_earth = '#{@earth_new}' 
+	WHERE ID = #{$id};"
+
+	# puts "updated second niece"
+
+	# statement = db.prepare "SELECT * FROM Charts 
+	# WHERE ID=?;"
+	# statement.bind_param 1, $id
+	# result_set = statement.execute
+
+	# row = result_set.next
+
+	# p row
+
+rescue SQLite3::Exception => e     
+	puts "Exception occurred"
+	puts e    
+ensure
+	# statement.close if statement
+	statement1.close if statement1
+	db.close if db    
+end
+
+#Third Niece
+begin
+	db = SQLite3::Database.open "geomantic.db"
+
+	statement1 = db.prepare "SELECT D1_fire,
+	D1_air, D1_water, D1_earth, D2_fire, D2_air,
+	D2_water, D2_earth FROM Charts WHERE Id = ?;"
+	statement1.bind_param 1, $id
+	result_set1 = statement1.execute
+
+	# p result_set1
+
+	row1 = result_set1.next
+
+	# p row1
+
+	fire_1  = row1.at(0)
+	air_1   = row1.at(1)
+	water_1 = row1.at(2)
+	earth_1 = row1.at(3)
+	fire_2  = row1.at(4)
+	air_2   = row1.at(5)
+	water_2 = row1.at(6)
+	earth_2 = row1.at(7)
+
+	derive_figure(fire_1, air_1, water_1, 
+		earth_1, fire_2, air_2, water_2, earth_2)
+
+	# puts
+	# puts @fire_new
+	# puts @air_new
+	# puts @water_new
+	# puts @earth_new
+	# puts
+
+	db.execute "UPDATE Charts 
+	SET N3_fire  = '#{@fire_new}', 
+		N3_air   = '#{@air_new}', 
+		N3_water = '#{@water_new}', 
+		N3_earth = '#{@earth_new}' 
+	WHERE ID = #{$id};"
+
+	# puts "updated third niece"
+
+	# statement = db.prepare "SELECT * FROM Charts 
+	# WHERE ID=?;"
+	# statement.bind_param 1, $id
+	# result_set = statement.execute
+
+	# row = result_set.next
+
+	# p row
+
+rescue SQLite3::Exception => e     
+	puts "Exception occurred"
+	puts e    
+ensure
+	# statement.close if statement
+	statement1.close if statement1
+	db.close if db    
+end
+
+#Fourth Niece
+begin
+	db = SQLite3::Database.open "geomantic.db"
+
+	statement1 = db.prepare "SELECT D3_fire,
+	D3_air, D3_water, D3_earth, D4_fire, D4_air,
+	D4_water, D4_earth FROM Charts WHERE Id = ?;"
+	statement1.bind_param 1, $id
+	result_set1 = statement1.execute
+
+	# p result_set1
+
+	row1 = result_set1.next
+
+	# p row1
+
+	fire_1  = row1.at(0)
+	air_1   = row1.at(1)
+	water_1 = row1.at(2)
+	earth_1 = row1.at(3)
+	fire_2  = row1.at(4)
+	air_2   = row1.at(5)
+	water_2 = row1.at(6)
+	earth_2 = row1.at(7)
+
+	derive_figure(fire_1, air_1, water_1, 
+		earth_1, fire_2, air_2, water_2, earth_2)
+
+	# puts
+	# puts @fire_new
+	# puts @air_new
+	# puts @water_new
+	# puts @earth_new
+	# puts
+
+	db.execute "UPDATE Charts 
+	SET N4_fire  = '#{@fire_new}', 
+		N4_air   = '#{@air_new}', 
+		N4_water = '#{@water_new}', 
+		N4_earth = '#{@earth_new}' 
+	WHERE ID = #{$id};"
+
+	# puts "updated fourth niece"
+
+	# statement = db.prepare "SELECT * FROM Charts 
+	# WHERE ID=?;"
+	# statement.bind_param 1, $id
+	# result_set = statement.execute
+
+	# row = result_set.next
+
+	# p row
+
+rescue SQLite3::Exception => e     
+	puts "Exception occurred"
+	puts e    
+ensure
+	# statement.close if statement
+	statement1.close if statement1
+	db.close if db    
+end
+
+#Right witness
+begin
+	db = SQLite3::Database.open "geomantic.db"
+
+	statement1 = db.prepare "SELECT N1_fire,
+	N1_air, N1_water, N1_earth, N2_fire, N2_air,
+	N2_water, N2_earth FROM Charts WHERE Id = ?;"
+	statement1.bind_param 1, $id
+	result_set1 = statement1.execute
+
+	# p result_set1
+
+	row1 = result_set1.next
+
+	# p row1
+
+	fire_1  = row1.at(0)
+	air_1   = row1.at(1)
+	water_1 = row1.at(2)
+	earth_1 = row1.at(3)
+	fire_2  = row1.at(4)
+	air_2   = row1.at(5)
+	water_2 = row1.at(6)
+	earth_2 = row1.at(7)
+
+	derive_figure(fire_1, air_1, water_1, 
+		earth_1, fire_2, air_2, water_2, earth_2)
+
+	# puts
+	# puts @fire_new
+	# puts @air_new
+	# puts @water_new
+	# puts @earth_new
+	# puts
+
+	db.execute "UPDATE Charts 
+	SET RW1_fire  = '#{@fire_new}', 
+		RW1_air   = '#{@air_new}', 
+		RW1_water = '#{@water_new}', 
+		RW1_earth = '#{@earth_new}' 
+	WHERE ID = #{$id};"
+
+	# puts "updated right witness"
+
+	# statement = db.prepare "SELECT * FROM Charts 
+	# WHERE ID=?;"
+	# statement.bind_param 1, $id
+	# result_set = statement.execute
+
+	# row = result_set.next
+
+	# p row
+
+rescue SQLite3::Exception => e     
+	puts "Exception occurred"
+	puts e    
+ensure
+	# statement.close if statement
+	statement1.close if statement1
+	db.close if db    
+end
+
+#Left witness
+begin
+	db = SQLite3::Database.open "geomantic.db"
+
+	statement1 = db.prepare "SELECT N3_fire,
+	N3_air, N3_water, N3_earth, N4_fire, N4_air,
+	N4_water, N4_earth FROM Charts WHERE Id = ?;"
+	statement1.bind_param 1, $id
+	result_set1 = statement1.execute
+
+	# p result_set1
+
+	row1 = result_set1.next
+
+	# p row1
+
+	fire_1  = row1.at(0)
+	air_1   = row1.at(1)
+	water_1 = row1.at(2)
+	earth_1 = row1.at(3)
+	fire_2  = row1.at(4)
+	air_2   = row1.at(5)
+	water_2 = row1.at(6)
+	earth_2 = row1.at(7)
+
+	derive_figure(fire_1, air_1, water_1, 
+		earth_1, fire_2, air_2, water_2, earth_2)
+
+	# puts
+	# puts @fire_new
+	# puts @air_new
+	# puts @water_new
+	# puts @earth_new
+	# puts
+
+	db.execute "UPDATE Charts 
+	SET LW2_fire  = '#{@fire_new}', 
+		LW2_air   = '#{@air_new}', 
+		LW2_water = '#{@water_new}', 
+		LW2_earth = '#{@earth_new}' 
+	WHERE ID = #{$id};"
+
+	# puts "updated left witness"
+
+	# statement = db.prepare "SELECT * FROM Charts 
+	# WHERE ID=?;"
+	# statement.bind_param 1, $id
+	# result_set = statement.execute
+
+	# row = result_set.next
+
+	# p row
+
+rescue SQLite3::Exception => e     
+	puts "Exception occurred"
+	puts e    
+ensure
+	# statement.close if statement
+	statement1.close if statement1
+	db.close if db    
+end
+
+#Judge
+begin
+	db = SQLite3::Database.open "geomantic.db"
+
+	statement1 = db.prepare "SELECT RW1_fire,
+	RW1_air, RW1_water, RW1_earth, LW2_fire, LW2_air,
+	LW2_water, LW2_earth FROM Charts WHERE Id = ?;"
+	statement1.bind_param 1, $id
+	result_set1 = statement1.execute
+
+	# p result_set1
+
+	# row1 = result_set1.next
+
+	# p row1
+
+	fire_1  = row1.at(0)
+	air_1   = row1.at(1)
+	water_1 = row1.at(2)
+	earth_1 = row1.at(3)
+	fire_2  = row1.at(4)
+	air_2   = row1.at(5)
+	water_2 = row1.at(6)
+	earth_2 = row1.at(7)
+
+	derive_figure(fire_1, air_1, water_1, 
+		earth_1, fire_2, air_2, water_2, earth_2)
+
+	# puts
+	# puts @fire_new
+	# puts @air_new
+	# puts @water_new
+	# puts @earth_new
+	# puts
+
+	db.execute "UPDATE Charts 
+	SET J3_fire  = '#{@fire_new}', 
+		J3_air   = '#{@air_new}', 
+		J3_water = '#{@water_new}', 
+		J3_earth = '#{@earth_new}' 
+	WHERE ID = #{$id};"
+
+	# puts "updated judge"
+
+	# statement = db.prepare "SELECT * FROM Charts 
+	# WHERE ID=?;"
+	# statement.bind_param 1, $id
+	# result_set = statement.execute
+
+	# row = result_set.next
+
+	# p row
+
+rescue SQLite3::Exception => e     
+	puts "Exception occurred"
+	puts e    
+ensure
+	# statement.close if statement
+	statement1.close if statement1
+	db.close if db    
+end
+
+
 
 #something to output the chart
 
+#print first mother
+begin
+	db = SQLite3::Database.open "geomantic.db"
+
+	statement1 = db.prepare "SELECT M1_fire,
+	M1_air, M1_water, M1_earth FROM Charts WHERE Id = ?;"
+	statement1.bind_param 1, $id
+	result_set1 = statement1.execute
+
+	# p result_set1
+
+	# row1 = result_set1.next
+
+	# p row1
+
+	fire  = row1.at(0)
+	air   = row1.at(1)
+	water = row1.at(2)
+	earth = row1.at(3)
+
+	puts "First Mother:"
+
+	lookup_figure(fire, air, water, earth)
+
+rescue SQLite3::Exception => e     
+	puts "Exception occurred"
+	puts e    
+ensure
+	# statement.close if statement
+	statement1.close if statement1
+	db.close if db    
+end
