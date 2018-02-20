@@ -15,6 +15,6 @@ Divination can be done solely with the escutcheon chart, or the figures can be t
 
 This script is simply intended to generate the first four and derive the other eleven figures so that a geomancer can fill in the charts without actually having to do the math involved, because I always screw up at least one of them.
 
-For more on geomancy, I recommend the book The Art and Practice of Geomancy by John Michael Greer.
+For more on geomancy, I recommend the book The Art and Practice of Geomancy by John Michael Greer. But there's a decent quick rundown here: https://www.princeton.edu/~ezb/geomancy/geostep.html
 
 This project was originally a beginning Ruby project, so old versions of the code are *awful*. The latest version is still pretty naive, but it has a SQLite database to store things, and any version posted is working code for whatever's actually there.
