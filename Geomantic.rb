@@ -73,37 +73,37 @@ begin
 	    VALUES (2, 2, 2, 2, 'Populus', 'People');"
 
 	    db.execute "UPDATE figures SET Figure = 
-	    ' * \\r * \\r * \\r * ' WHERE ID = 1;"
+	    ' * \n * \n * \n * ' WHERE ID = 1;"
 	    db.execute "UPDATE figures SET Figure = 
-	    ' * \\r * \\r * \\r* *' WHERE ID = 2;"
+	    ' * \n * \n * \n* *' WHERE ID = 2;"
 	    db.execute "UPDATE figures SET Figure = 
-	    ' * \\r * \\r* *\\r * ' WHERE ID = 3;"
+	    ' * \n * \n* *\n * ' WHERE ID = 3;"
 	    db.execute "UPDATE figures SET Figure =  
-	    ' * \\r * \\r* *\\r* *' WHERE ID = 4;"
+	    ' * \n * \n* *\n* *' WHERE ID = 4;"
 	    db.execute "UPDATE figures SET Figure =  
-	    ' * \\r* *\\r * \\r * ' WHERE ID = 5;"
+	    ' * \n* *\n * \n * ' WHERE ID = 5;"
 	    db.execute "UPDATE figures SET Figure =  
-	    ' * \\r* *\\r * \\r* *' WHERE ID = 6;"
+	    ' * \n* *\n * \n* *' WHERE ID = 6;"
 		db.execute "UPDATE figures SET Figure =  
-	    ' * \\r* *\\r* *\\r * ' WHERE ID = 7;"
+	    ' * \n* *\n* *\n * ' WHERE ID = 7;"
 	    db.execute "UPDATE figures SET Figure =  
-	    ' * \\r* *\\r* *\\r* *' WHERE ID = 8;"
+	    ' * \n* *\n* *\n* *' WHERE ID = 8;"
 	    db.execute "UPDATE figures SET Figure =  
-	    '* *\\r * \\r * \\r * ' WHERE ID = 9;"
+	    '* *\n * \n * \n * ' WHERE ID = 9;"
 	    db.execute "UPDATE figures SET Figure =  
-	    '* *\\r * \\r * \\r* *' WHERE ID = 10;"
+	    '* *\n * \n * \n* *' WHERE ID = 10;"
 	    db.execute "UPDATE figures SET Figure =  
-	    '* *\\r * \\r* *\\r * ' WHERE ID = 11;"
+	    '* *\n * \n* *\n * ' WHERE ID = 11;"
 	    db.execute "UPDATE figures SET Figure =  
-	    '* *\\r * \\r* *\\r* *' WHERE ID = 12;"
+	    '* *\n * \n* *\n* *' WHERE ID = 12;"
 	    db.execute "UPDATE figures SET Figure =  
-	    '* *\\r* *\\r * \\r * ' WHERE ID = 13;"
+	    '* *\n* *\n * \n * ' WHERE ID = 13;"
 	    db.execute "UPDATE figures SET Figure =  
-	    '* *\\r* *\\r * \\r* *' WHERE ID = 14;"
+	    '* *\n* *\n * \n* *' WHERE ID = 14;"
 	    db.execute "UPDATE figures SET Figure =  
-	    '* *\\r* *\\r* *\\r * ' WHERE ID = 15;"
+	    '* *\n* *\n* *\n * ' WHERE ID = 15;"
 	    db.execute "UPDATE figures SET Figure =  
-	    '* *\\r* *\\r* *\\r* *' WHERE ID = 16;"
+	    '* *\n* *\n* *\n* *' WHERE ID = 16;"
 
 	    puts "figures inserted"
 	end #if
@@ -501,7 +501,7 @@ def lookup_figure(fig_group, fig_position)
 		# p row
 
 		figname = row['name']
-		figure  = row['figure']
+		figure  = row['figure'].to_s
 
 		card_to_ord(fig_group, fig_position)
 
