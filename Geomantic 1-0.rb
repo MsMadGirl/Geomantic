@@ -540,11 +540,84 @@ def card_to_ord(fig_group, fig_position)
 		
 end
 
+def input_or_generate
+	puts "Do you wish to A) input or B) generate the Mothers?"
+	choice = gets.chomp.capitalize
+
+	if choice == "A"
+		(1..4).each do |e|
+    		get_mother(e)
+		end
+	elsif choice == "B"
+		(1..4).each do |e|
+    		generate_mother(e)
+		end
+	else
+		puts "Please input A or B."
+		input_or_generate
+	end
+end
+
+def get_mother(fig_position)
+
+	begin
+		db = SQLite3::Database.open "geomantic.db"
+		statement = db.prepare "SELECT name
+		FROM figures;"
+		result_set = statement.execute
+		# names = result_set.to_a
+		names = ["Via", "Puer", "Carcer", "Puella"]
+		# puts names[0].inspect
+		card_to_ord('Mother', fig_position)
+
+		puts "What is the #{@fig_ord}Mother?"
+		m_name = gets.chomp
+		# puts m_name
+
+		if names.include?(m_name) == false
+			puts "Sorry, that is not a figure."
+			get_mother(fig_position)
+		else
+			puts "That's a figure, alright!"
+		end
+
+		statement1 = db.prepare "SELECT fire, air, water, earth
+		FROM figures WHERE name = '#{m_name}';"
+		result_set1 = statement1.execute
+		row1 = result_set1.next_hash
+		p row1
+		fire  = row1["fire"]
+		puts fire
+		air   = row1["air"]
+		puts air
+		water = row1["water"]
+		puts water
+		earth = row1["earth"]
+		puts earth
+
+		statement2 = db.prepare "INSERT INTO C_figures 
+		(chart_id, fig_group, fig_position, fire, air, water, earth) 
+		VALUES (?, 'Mother', '#{fig_position}', '#{fire}', 
+		'#{air}', '#{water}', '#{earth}');"
+		statement2.bind_param 1, $chart_id
+		statement2.execute
+
+	rescue SQLite3::Exception => e     
+    	puts "Exception occurred"
+    	puts e    
+	ensure
+		statement.close if statement
+		statement1.close if statement1
+		statement2.close if statement2
+    	db.close if db    
+	end
+
+end
+
+
 chart_info
 
-(1..4).each do |e|
-    generate_mother(e)
-end
+input_or_generate
 
 (1..4).each do |e|
     derive_daughter(e)
