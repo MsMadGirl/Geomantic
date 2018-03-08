@@ -38,6 +38,7 @@ begin
 
 	# p row
 
+	# if the figures are not already in the database, enter them
     if row == nil
 		db.execute "INSERT INTO figures (fire, air, water, earth, name, translation)
 		    VALUES (1, 1, 1, 1, 'Via', 'Way');"
@@ -72,6 +73,7 @@ begin
 	    db.execute "INSERT INTO figures (fire, air, water, earth, name, translation)
 	    VALUES (2, 2, 2, 2, 'Populus', 'People');"
 
+	    #adding figure representations was an attempt to get around something; FIX
 	    db.execute "UPDATE figures SET Figure = 
 	    ' * \n * \n * \n * ' WHERE ID = 1;"
 	    db.execute "UPDATE figures SET Figure = 
@@ -162,7 +164,7 @@ def chart_info
 end
 
 #generates a line - DONE
-
+#creates one line of odd or even value
 def generate_line
 	if (rand(9) + 1).even?
     	line_value = 2
@@ -181,15 +183,6 @@ def generate_mother (fig_position)
 	air   = generate_line
 	water = generate_line
 	earth = generate_line
-
-	# puts "~~~~"
-	# puts "Mother #{fig_position}:"
-	# puts fire
-	# puts air 
-	# puts water 
-	# puts earth 
-	# puts "~~~~"
-	# puts
 
 	begin
 		db = SQLite3::Database.open "geomantic.db"
@@ -211,7 +204,11 @@ def generate_mother (fig_position)
 end
 
 #method to derive daughters
-
+#derives a daughter figure from the four mother figures
+#the first daughter is made from the fire lines
+#second from air
+#third from water
+#fourth from earth
 def derive_daughter (d_fig_position)
 
 	if d_fig_position == 1
@@ -229,6 +226,8 @@ def derive_daughter (d_fig_position)
 		
 
 	begin
+		#selects the appropriate line fromt the first mother
+		#and assigns it as the fire line of the daughter
 		db = SQLite3::Database.open "geomantic.db"
 		statement1 = db.prepare "SELECT #{element} FROM c_figures 
 		WHERE fig_group = 'Mother' AND fig_position = 1 AND 
@@ -244,6 +243,7 @@ def derive_daughter (d_fig_position)
 
 		@fire  = row1[element]
 
+		#assigns line from second mother as air line
 		statement2 = db.prepare "SELECT #{element} FROM c_figures 
 		WHERE fig_group = 'Mother' AND fig_position = 2 AND 
 		chart_id = ?;"
@@ -258,6 +258,7 @@ def derive_daughter (d_fig_position)
 
 		# p row2
 
+		#assigns line from third mother as water line
 		statement3 = db.prepare "SELECT #{element} FROM c_figures 
 		WHERE fig_group = 'Mother' AND fig_position = 3 AND 
 		chart_id = ?;"
@@ -269,7 +270,8 @@ def derive_daughter (d_fig_position)
 		# p row3
 
 		@water = row3[element]
-
+		
+		#assigns line from fourth mother as earth line
 		statement4 = db.prepare "SELECT #{element} FROM c_figures 
 		WHERE fig_group = 'Mother' AND fig_position = 4 AND 
 		chart_id = ?;"
@@ -311,23 +313,15 @@ def derive_daughter (d_fig_position)
 		statement.close if statement
     	db.close if db    
 	end
-
-	# puts "~~~~"
-	# puts "Daughter #{d_fig_position}:"
-	# puts @fire
-	# puts @air 
-	# puts @water 
-	# puts @earth 
-	# puts "~~~~"
-	# puts
-
 end
 
 
 #method to derive other figures - DONE
-
+#deriving other figures is done by adding the lines of the two figures 
+#above and the resulting odd or even number determines the new line
 def derive_figure (fig_group, fig_position)
 
+	#sloppy if sequence; rewrite as case statement FIX
 	if fig_group == 'Niece'
 		if fig_position == 1
 			p1_group = 'Mother'
@@ -371,11 +365,7 @@ def derive_figure (fig_group, fig_position)
 		puts "error no such fig_group"
 	end
 
-	# puts p1_group
-	# puts p1_position
-	# puts p2_group
-	# puts p2_position
-
+	#fetch first additive figure from db
 	begin
 		db = SQLite3::Database.open "geomantic.db"
 		statement1 = db.prepare "SELECT fire, air, water, earth FROM c_figures 
@@ -395,6 +385,7 @@ def derive_figure (fig_group, fig_position)
 		water_1 = row1['water']
 		earth_1 = row1['earth']
 
+		#fetch second additive figure from db
 		statement2 = db.prepare "SELECT fire, air, water, earth FROM c_figures 
 		WHERE fig_group = '#{p2_group}' AND fig_position = #{p2_position} AND 
 		chart_id = ?;"
@@ -421,8 +412,7 @@ def derive_figure (fig_group, fig_position)
     	db.close if db    
 	end	
 
-
-
+	#add line and determine if even or odd
 	if (fire_1 + fire_2).even?
 		fire_new = 2
 	else
@@ -447,6 +437,7 @@ def derive_figure (fig_group, fig_position)
 		earth_new = 1
 	end
 
+	#insert new figures into db
 	begin
 		db = SQLite3::Database.open "geomantic.db"
 		statement = db.prepare "INSERT INTO C_figures 
@@ -463,16 +454,6 @@ def derive_figure (fig_group, fig_position)
 		statement.close if statement
     	db.close if db    
 	end
-
-	# puts "~~~~"
-	# puts "#{fig_group} #{fig_position}:"
-	# puts fire_new
-	# puts air_new
-	# puts water_new
-	# puts earth_new
-	# puts "~~~~"
-	# puts
-
 end
 
 #method to look up figures from table
@@ -520,6 +501,7 @@ def lookup_figure(fig_group, fig_position)
 	end		
 end
 
+#method to convert cardinal numbers to ordinals -- DONE
 def card_to_ord(fig_group, fig_position)
 
 	if (fig_group == 'Mother' || fig_group == 'Daughter' || fig_group == 'Niece')
@@ -540,6 +522,7 @@ def card_to_ord(fig_group, fig_position)
 		
 end
 
+#method to ask if user wants to generate or input mothers -- DONE
 def input_or_generate
 	puts "Do you wish to A) input or B) generate the Mothers?"
 	choice = gets.chomp.capitalize
@@ -558,6 +541,8 @@ def input_or_generate
 	end
 end
 
+#method to accept input of mothers
+#needs to be finished
 def get_mother(fig_position)
 
 	begin
@@ -566,11 +551,11 @@ def get_mother(fig_position)
 		FROM figures;"
 		result_set = statement.execute
 		# names = result_set.to_a
-		names = ["Via", "Puer", "Carcer", "Puella"]
+		names = ["Via", "Cauda Draconis", "Puer", "Fortuna Minor", "Puella", "Amissio", "Carcer", "Laetitia", "Caput Draconis", "Conjunctio", "Acquisitio", "Rubeus", "Fortuna Major", "Albus", "Tristitia", "Populus"]
 		# puts names[0].inspect
 		card_to_ord('Mother', fig_position)
 
-		puts "What is the #{@fig_ord}Mother?"
+		puts "What is the #{@fig_ord}Mother? Please use proper capitalization."
 		m_name = gets.chomp
 		# puts m_name
 
@@ -614,7 +599,7 @@ def get_mother(fig_position)
 
 end
 
-
+#execute things
 chart_info
 
 input_or_generate
