@@ -321,49 +321,49 @@ end
 #above and the resulting odd or even number determines the new line
 def derive_figure (fig_group, fig_position)
 
-	#sloppy if sequence; rewrite as case statement FIX
-	if fig_group == 'Niece'
-		if fig_position == 1
-			p1_group = 'Mother'
+	#case statement - DONE
+
+	case fig_group
+		when 'Niece'
+			case fig_position
+				when 1 then
+					p1_group = 'Mother'
+					p1_position = 1
+					p2_group = 'Mother'
+					p2_position = 2
+				when 2 then
+					p1_group = 'Mother'
+					p1_position = 3
+					p2_group = 'Mother'
+					p2_position = 4
+				when 3 then
+					p1_group = 'Daughter'
+					p1_position = 1
+					p2_group = 'Daughter'
+					p2_position = 2
+				when 4 then
+					p1_group = 'Daughter'
+					p1_position = 1
+					p2_group = 'Daughter'
+					p2_position = 2
+			end
+		when 'Right Witness' then 
+			p1_group = 'Niece'
 			p1_position = 1
-			p2_group = 'Mother'
+			p2_group = 'Niece'
 			p2_position = 2
-		elsif fig_position == 2
-			p1_group = 'Mother'
+		when 'Left Witness' then
+			p1_group = 'Niece'
 			p1_position = 3
-			p2_group = 'Mother'
-			p2_position = 4
-		elsif fig_position == 3
-			p1_group = 'Daughter'
+			p2_group = 'Niece'
+			p2_position =4
+		when 'Judge'
+			p1_group = 'Right Witness'
 			p1_position = 1
-			p2_group = 'Daughter'
-			p2_position = 2
-		elsif fig_position == 4
-			p1_group = 'Daughter'
-			p1_position = 3
-			p2_group = 'Daughter'
-			p2_position = 4
-		else 
-			puts "error no such fig_position"
-		end
-	elsif fig_group == 'Right Witness'
-		p1_group = 'Niece'
-		p1_position = 1
-		p2_group = 'Niece'
-		p2_position = 2
-	elsif fig_group == 'Left Witness'
-		p1_group = 'Niece'
-		p1_position = 3
-		p2_group = 'Niece'
-		p2_position = 4
-	elsif fig_group == 'Judge'
-		p1_group = 'Right Witness'
-		p1_position = 1
-		p2_group = 'Left Witness'
-		p2_position = 1
-	else
-		puts "error no such fig_group"
+			p2_group = 'Left Witness'
+			p2_position = 1
 	end
+
 
 	#fetch first additive figure from db
 	begin
