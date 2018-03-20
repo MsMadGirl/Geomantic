@@ -40,74 +40,39 @@ begin
 
 	# if the figures are not already in the database, enter them
     if row == nil
-		db.execute "INSERT INTO figures (fire, air, water, earth, name, translation)
-		    VALUES (1, 1, 1, 1, 'Via', 'Way');"
-	    db.execute "INSERT INTO figures (fire, air, water, earth, name, translation)
-	    VALUES (1, 1, 1, 2, 'Cauda Draconis', 'Tail of the Dragon');"
-	    db.execute "INSERT INTO figures (fire, air, water, earth, name, translation)
-	    VALUES (1, 1, 2, 1, 'Puer', 'Boy');"
-	    db.execute "INSERT INTO figures (fire, air, water, earth, name, translation)
-	    VALUES (1, 1, 2, 2, 'Fortuna Minor', 'Lesser Fortune');"
-	    db.execute "INSERT INTO figures (fire, air, water, earth, name, translation)
-	    VALUES (1, 2, 1, 1, 'Puella', 'Girl');"
-	    db.execute "INSERT INTO figures (fire, air, water, earth, name, translation)
-	    VALUES (1, 2, 1, 2, 'Amissio', 'Loss');"
-		db.execute "INSERT INTO figures (fire, air, water, earth, name, translation)
-	    VALUES (1, 2, 2, 1, 'Carcer', 'Prison');"
-	    db.execute "INSERT INTO figures (fire, air, water, earth, name, translation)
-	    VALUES (1, 2, 2, 2, 'Laetitia', 'Joy');"
-	    db.execute "INSERT INTO figures (fire, air, water, earth, name, translation)
-	    VALUES (2, 1, 1, 1, 'Caput Draconis', 'Head of the Dragon');"
-	    db.execute "INSERT INTO figures (fire, air, water, earth, name, translation)
-	    VALUES (2, 1, 1, 2, 'Conjunctio', 'Conjunction');"
-	    db.execute "INSERT INTO figures (fire, air, water, earth, name, translation)
-	    VALUES (2, 1, 2, 1, 'Acquisitio', 'Gain');"
-	    db.execute "INSERT INTO figures (fire, air, water, earth, name, translation)
-	    VALUES (2, 1, 2, 2, 'Rubeus', 'Red');"
-	    db.execute "INSERT INTO figures (fire, air, water, earth, name, translation)
-	    VALUES (2, 2, 1, 1, 'Fortuna Major', 'Greater Fortune');"
-	    db.execute "INSERT INTO figures (fire, air, water, earth, name, translation)
-	    VALUES (2, 2, 1, 2, 'Albus', 'White');"
-	    db.execute "INSERT INTO figures (fire, air, water, earth, name, translation)
-	    VALUES (2, 2, 2, 1, 'Tristitia', 'Sorrow');"
-	    db.execute "INSERT INTO figures (fire, air, water, earth, name, translation)
-	    VALUES (2, 2, 2, 2, 'Populus', 'People');"
+		db.execute "INSERT INTO figures (fire, air, water, earth, name, translation, figure)
+		    VALUES (1, 1, 1, 1, 'Via', 'Way', ' * \n * \n * \n * ');"
+	    db.execute "INSERT INTO figures (fire, air, water, earth, name, translation, figure)
+	    VALUES (1, 1, 1, 2, 'Cauda Draconis', 'Tail of the Dragon', ' * \n * \n * \n* *');"
+	    db.execute "INSERT INTO figures (fire, air, water, earth, name, translation, figure)
+	    VALUES (1, 1, 2, 1, 'Puer', 'Boy', ' * \n * \n* *\n * ');"
+	    db.execute "INSERT INTO figures (fire, air, water, earth, name, translation, figure)
+	    VALUES (1, 1, 2, 2, 'Fortuna Minor', 'Lesser Fortune', ' * \n * \n* *\n* *');"
+	    db.execute "INSERT INTO figures (fire, air, water, earth, name, translation, figure)
+	    VALUES (1, 2, 1, 1, 'Puella', 'Girl', ' * \n* *\n * \n * ');"
+	    db.execute "INSERT INTO figures (fire, air, water, earth, name, translation, figure)
+	    VALUES (1, 2, 1, 2, 'Amissio', 'Loss', ' * \n* *\n * \n* *');"
+		db.execute "INSERT INTO figures (fire, air, water, earth, name, translation, figure)
+	    VALUES (1, 2, 2, 1, 'Carcer', 'Prison', ' * \n* *\n* *\n * ');"
+	    db.execute "INSERT INTO figures (fire, air, water, earth, name, translation, figure)
+	    VALUES (1, 2, 2, 2, 'Laetitia', 'Joy', ' * \n* *\n* *\n* *');"
+	    db.execute "INSERT INTO figures (fire, air, water, earth, name, translation, figure)
+	    VALUES (2, 1, 1, 1, 'Caput Draconis', 'Head of the Dragon', '* *\n * \n * \n * ');"
+	    db.execute "INSERT INTO figures (fire, air, water, earth, name, translation, figure)
+	    VALUES (2, 1, 1, 2, 'Conjunctio', 'Conjunction', '* *\n * \n * \n* *');"
+	    db.execute "INSERT INTO figures (fire, air, water, earth, name, translation, figure)
+	    VALUES (2, 1, 2, 1, 'Acquisitio', 'Gain', '* *\n * \n* *\n * ');"
+	    db.execute "INSERT INTO figures (fire, air, water, earth, name, translation, figure)
+	    VALUES (2, 1, 2, 2, 'Rubeus', 'Red', '* *\n * \n* *\n* *');"
+	    db.execute "INSERT INTO figures (fire, air, water, earth, name, translation, figure)
+	    VALUES (2, 2, 1, 1, 'Fortuna Major', 'Greater Fortune', '* *\n* *\n * \n * ');"
+	    db.execute "INSERT INTO figures (fire, air, water, earth, name, translation, figure)
+	    VALUES (2, 2, 1, 2, 'Albus', 'White', '* *\n* *\n * \n* *');"
+	    db.execute "INSERT INTO figures (fire, air, water, earth, name, translation, figure)
+	    VALUES (2, 2, 2, 1, 'Tristitia', 'Sorrow', '* *\n* *\n* *\n * ');"
+	    db.execute "INSERT INTO figures (fire, air, water, earth, name, translation, figure)
+	    VALUES (2, 2, 2, 2, 'Populus', 'People', '* *\n* *\n* *\n* *');"
 
-	    #adding figure representations was an attempt to get around something; FIX
-	    db.execute "UPDATE figures SET Figure = 
-	    ' * \n * \n * \n * ' WHERE ID = 1;"
-	    db.execute "UPDATE figures SET Figure = 
-	    ' * \n * \n * \n* *' WHERE ID = 2;"
-	    db.execute "UPDATE figures SET Figure = 
-	    ' * \n * \n* *\n * ' WHERE ID = 3;"
-	    db.execute "UPDATE figures SET Figure =  
-	    ' * \n * \n* *\n* *' WHERE ID = 4;"
-	    db.execute "UPDATE figures SET Figure =  
-	    ' * \n* *\n * \n * ' WHERE ID = 5;"
-	    db.execute "UPDATE figures SET Figure =  
-	    ' * \n* *\n * \n* *' WHERE ID = 6;"
-		db.execute "UPDATE figures SET Figure =  
-	    ' * \n* *\n* *\n * ' WHERE ID = 7;"
-	    db.execute "UPDATE figures SET Figure =  
-	    ' * \n* *\n* *\n* *' WHERE ID = 8;"
-	    db.execute "UPDATE figures SET Figure =  
-	    '* *\n * \n * \n * ' WHERE ID = 9;"
-	    db.execute "UPDATE figures SET Figure =  
-	    '* *\n * \n * \n* *' WHERE ID = 10;"
-	    db.execute "UPDATE figures SET Figure =  
-	    '* *\n * \n* *\n * ' WHERE ID = 11;"
-	    db.execute "UPDATE figures SET Figure =  
-	    '* *\n * \n* *\n* *' WHERE ID = 12;"
-	    db.execute "UPDATE figures SET Figure =  
-	    '* *\n* *\n * \n * ' WHERE ID = 13;"
-	    db.execute "UPDATE figures SET Figure =  
-	    '* *\n* *\n * \n* *' WHERE ID = 14;"
-	    db.execute "UPDATE figures SET Figure =  
-	    '* *\n* *\n* *\n * ' WHERE ID = 15;"
-	    db.execute "UPDATE figures SET Figure =  
-	    '* *\n* *\n* *\n* *' WHERE ID = 16;"
-
-	    puts "figures inserted"
 	end #if
 
 rescue SQLite3::Exception => e     
