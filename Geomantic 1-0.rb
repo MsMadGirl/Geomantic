@@ -342,9 +342,9 @@ def derive_figure (fig_group, fig_position)
 					p2_position = 2
 				when 4 then
 					p1_group = 'Daughter'
-					p1_position = 1
+					p1_position = 3
 					p2_group = 'Daughter'
-					p2_position = 2
+					p2_position = 4
 			end
 		when 'Right Witness' then 
 			p1_group = 'Niece'
