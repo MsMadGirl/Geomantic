@@ -3,7 +3,7 @@
 require 'yaml'
 require 'sqlite3'
 
-#something to create database - DONE
+#something to create database  DONE
 
 begin
 	db = SQLite3::Database.new "geomantic.db"
@@ -16,7 +16,7 @@ ensure
     db.close if db    
 end
 
-#creation of table - DONE
+#creation of table  DONE
 
 begin
 	db = SQLite3::Database.open "geomantic.db"
@@ -40,38 +40,72 @@ begin
 
 	# if the figures are not already in the database, enter them
     if row == nil
-		db.execute "INSERT INTO figures (fire, air, water, earth, name, translation, figure)
-		    VALUES (1, 1, 1, 1, 'Via', 'Way', ' * \n * \n * \n * ');"
-	    db.execute "INSERT INTO figures (fire, air, water, earth, name, translation, figure)
-	    VALUES (1, 1, 1, 2, 'Cauda Draconis', 'Tail of the Dragon', ' * \n * \n * \n* *');"
-	    db.execute "INSERT INTO figures (fire, air, water, earth, name, translation, figure)
-	    VALUES (1, 1, 2, 1, 'Puer', 'Boy', ' * \n * \n* *\n * ');"
-	    db.execute "INSERT INTO figures (fire, air, water, earth, name, translation, figure)
-	    VALUES (1, 1, 2, 2, 'Fortuna Minor', 'Lesser Fortune', ' * \n * \n* *\n* *');"
-	    db.execute "INSERT INTO figures (fire, air, water, earth, name, translation, figure)
-	    VALUES (1, 2, 1, 1, 'Puella', 'Girl', ' * \n* *\n * \n * ');"
-	    db.execute "INSERT INTO figures (fire, air, water, earth, name, translation, figure)
-	    VALUES (1, 2, 1, 2, 'Amissio', 'Loss', ' * \n* *\n * \n* *');"
-		db.execute "INSERT INTO figures (fire, air, water, earth, name, translation, figure)
-	    VALUES (1, 2, 2, 1, 'Carcer', 'Prison', ' * \n* *\n* *\n * ');"
-	    db.execute "INSERT INTO figures (fire, air, water, earth, name, translation, figure)
-	    VALUES (1, 2, 2, 2, 'Laetitia', 'Joy', ' * \n* *\n* *\n* *');"
-	    db.execute "INSERT INTO figures (fire, air, water, earth, name, translation, figure)
-	    VALUES (2, 1, 1, 1, 'Caput Draconis', 'Head of the Dragon', '* *\n * \n * \n * ');"
-	    db.execute "INSERT INTO figures (fire, air, water, earth, name, translation, figure)
-	    VALUES (2, 1, 1, 2, 'Conjunctio', 'Conjunction', '* *\n * \n * \n* *');"
-	    db.execute "INSERT INTO figures (fire, air, water, earth, name, translation, figure)
-	    VALUES (2, 1, 2, 1, 'Acquisitio', 'Gain', '* *\n * \n* *\n * ');"
-	    db.execute "INSERT INTO figures (fire, air, water, earth, name, translation, figure)
-	    VALUES (2, 1, 2, 2, 'Rubeus', 'Red', '* *\n * \n* *\n* *');"
-	    db.execute "INSERT INTO figures (fire, air, water, earth, name, translation, figure)
-	    VALUES (2, 2, 1, 1, 'Fortuna Major', 'Greater Fortune', '* *\n* *\n * \n * ');"
-	    db.execute "INSERT INTO figures (fire, air, water, earth, name, translation, figure)
-	    VALUES (2, 2, 1, 2, 'Albus', 'White', '* *\n* *\n * \n* *');"
-	    db.execute "INSERT INTO figures (fire, air, water, earth, name, translation, figure)
-	    VALUES (2, 2, 2, 1, 'Tristitia', 'Sorrow', '* *\n* *\n* *\n * ');"
-	    db.execute "INSERT INTO figures (fire, air, water, earth, name, translation, figure)
-	    VALUES (2, 2, 2, 2, 'Populus', 'People', '* *\n* *\n* *\n* *');"
+		db.execute "INSERT INTO figures (fire, air, water, earth, name, translation)
+		    VALUES (1, 1, 1, 1, 'Via', 'Way');"
+	    db.execute "INSERT INTO figures (fire, air, water, earth, name, translation)
+	    VALUES (1, 1, 1, 2, 'Cauda Draconis', 'Tail of the Dragon');"
+	    db.execute "INSERT INTO figures (fire, air, water, earth, name, translation)
+	    VALUES (1, 1, 2, 1, 'Puer', 'Boy');"
+	    db.execute "INSERT INTO figures (fire, air, water, earth, name, translation)
+	    VALUES (1, 1, 2, 2, 'Fortuna Minor', 'Lesser Fortune');"
+	    db.execute "INSERT INTO figures (fire, air, water, earth, name, translation)
+	    VALUES (1, 2, 1, 1, 'Puella', 'Girl');"
+	    db.execute "INSERT INTO figures (fire, air, water, earth, name, translation)
+	    VALUES (1, 2, 1, 2, 'Amissio', 'Loss');"
+		db.execute "INSERT INTO figures (fire, air, water, earth, name, translation)
+	    VALUES (1, 2, 2, 1, 'Carcer', 'Prison');"
+	    db.execute "INSERT INTO figures (fire, air, water, earth, name, translation)
+	    VALUES (1, 2, 2, 2, 'Laetitia', 'Joy');"
+	    db.execute "INSERT INTO figures (fire, air, water, earth, name, translation)
+	    VALUES (2, 1, 1, 1, 'Caput Draconis', 'Head of the Dragon');"
+	    db.execute "INSERT INTO figures (fire, air, water, earth, name, translation)
+	    VALUES (2, 1, 1, 2, 'Conjunctio', 'Conjunction');"
+	    db.execute "INSERT INTO figures (fire, air, water, earth, name, translation)
+	    VALUES (2, 1, 2, 1, 'Acquisitio', 'Gain');"
+	    db.execute "INSERT INTO figures (fire, air, water, earth, name, translation)
+	    VALUES (2, 1, 2, 2, 'Rubeus', 'Red');"
+	    db.execute "INSERT INTO figures (fire, air, water, earth, name, translation)
+	    VALUES (2, 2, 1, 1, 'Fortuna Major', 'Greater Fortune');"
+	    db.execute "INSERT INTO figures (fire, air, water, earth, name, translation)
+	    VALUES (2, 2, 1, 2, 'Albus', 'White');"
+	    db.execute "INSERT INTO figures (fire, air, water, earth, name, translation)
+	    VALUES (2, 2, 2, 1, 'Tristitia', 'Sorrow');"
+	    db.execute "INSERT INTO figures (fire, air, water, earth, name, translation)
+	    VALUES (2, 2, 2, 2, 'Populus', 'People');"
+
+	    #adding figure representations was an attempt to get around something; FIX
+	    db.execute "UPDATE figures SET Figure = 
+	    ' * \n * \n * \n * ' WHERE ID = 1;"
+	    db.execute "UPDATE figures SET Figure = 
+	    ' * \n * \n * \n* *' WHERE ID = 2;"
+	    db.execute "UPDATE figures SET Figure = 
+	    ' * \n * \n* *\n * ' WHERE ID = 3;"
+	    db.execute "UPDATE figures SET Figure =  
+	    ' * \n * \n* *\n* *' WHERE ID = 4;"
+	    db.execute "UPDATE figures SET Figure =  
+	    ' * \n* *\n * \n * ' WHERE ID = 5;"
+	    db.execute "UPDATE figures SET Figure =  
+	    ' * \n* *\n * \n* *' WHERE ID = 6;"
+		db.execute "UPDATE figures SET Figure =  
+	    ' * \n* *\n* *\n * ' WHERE ID = 7;"
+	    db.execute "UPDATE figures SET Figure =  
+	    ' * \n* *\n* *\n* *' WHERE ID = 8;"
+	    db.execute "UPDATE figures SET Figure =  
+	    '* *\n * \n * \n * ' WHERE ID = 9;"
+	    db.execute "UPDATE figures SET Figure =  
+	    '* *\n * \n * \n* *' WHERE ID = 10;"
+	    db.execute "UPDATE figures SET Figure =  
+	    '* *\n * \n* *\n * ' WHERE ID = 11;"
+	    db.execute "UPDATE figures SET Figure =  
+	    '* *\n * \n* *\n* *' WHERE ID = 12;"
+	    db.execute "UPDATE figures SET Figure =  
+	    '* *\n* *\n * \n * ' WHERE ID = 13;"
+	    db.execute "UPDATE figures SET Figure =  
+	    '* *\n* *\n * \n* *' WHERE ID = 14;"
+	    db.execute "UPDATE figures SET Figure =  
+	    '* *\n* *\n* *\n * ' WHERE ID = 15;"
+	    db.execute "UPDATE figures SET Figure =  
+	    '* *\n* *\n* *\n* *' WHERE ID = 16;"
 
 	end #if
 
@@ -84,7 +118,7 @@ ensure
 end
 
 #something to take in info about a chart and 
-#pass it to the DB - DONE
+#pass it to the DB  DONE
 
 def chart_info
 	puts
@@ -128,7 +162,7 @@ def chart_info
 
 end
 
-#generates a line - DONE
+#generates a line  DONE
 #creates one line of odd or even value
 def generate_line
 	if (rand(9) + 1).even?
@@ -140,7 +174,7 @@ def generate_line
 #  	puts "line = #{line_value}"
 end
 
-#run generate_line four times to make a mother, insert into db - DONE
+#run generate_line four times to make a mother, insert into db  DONE
 
 def generate_mother (fig_position)
 
@@ -281,12 +315,12 @@ def derive_daughter (d_fig_position)
 end
 
 
-#method to derive other figures - DONE
+#method to derive other figures  DONE
 #deriving other figures is done by adding the lines of the two figures 
 #above and the resulting odd or even number determines the new line
 def derive_figure (fig_group, fig_position)
 
-	#case statement - DONE
+	#case statement  DONE
 
 	case fig_group
 		when 'Niece'
@@ -402,6 +436,12 @@ def derive_figure (fig_group, fig_position)
 		earth_new = 1
 	end
 
+	if fig_group == "Judge"
+		if (fire_new + air_new + water_new + earth_new).odd?
+			print "error"
+		end
+	end
+
 	#insert new figures into db
 	begin
 		db = SQLite3::Database.open "geomantic.db"
@@ -466,7 +506,7 @@ def lookup_figure(fig_group, fig_position)
 	end		
 end
 
-#method to convert cardinal numbers to ordinals -- DONE
+#method to convert cardinal numbers to ordinals  DONE
 def card_to_ord(fig_group, fig_position)
 
 	if (fig_group == 'Mother' || fig_group == 'Daughter' || fig_group == 'Niece')
@@ -487,7 +527,7 @@ def card_to_ord(fig_group, fig_position)
 		
 end
 
-#method to ask if user wants to generate or input mothers -- DONE
+#method to ask if user wants to generate or input mothers  DONE
 def input_or_generate
 	puts "Do you wish to A) input or B) generate the Mothers?"
 	choice = gets.chomp.capitalize
