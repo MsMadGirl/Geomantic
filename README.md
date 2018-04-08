@@ -15,7 +15,7 @@ Divination can be done solely with the shield chart, or the figures can be trans
 
 This script is simply intended to generate the first four and derive the other eleven figures so that a geomancer can fill in the charts without actually having to do the math involved, because I always screw up at least one of them.
 
-There's a decent quick rundown on how generating and deriving the figures works here: https://www.princeton.edu/~ezb/geomancy/geostep.html
+You can find my explanation of how the generation and derivation of figures works here: http://www.lynde-scott.com/geomancy-a-kata/
 
 This project was originally a beginning Ruby project, so old versions of the code are *awful*. The latest version is still pretty naive, but it has a SQLite database to store things, and any version posted is working code for whatever's actually there.
 
